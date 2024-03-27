@@ -1,0 +1,12 @@
+{
+  "productName": "Finance_Gateway",
+  "disappointing": "How did we disappoint you and what can we do to make things right?",
+  "improvements": "What can we do to make your experience more satisfying?",
+  "checkboxes": [
+    "Performance",
+    "User Interface",
+    "Quality Support",
+    "Stability",
+    "Documentations and Demos"
+  ]
+}

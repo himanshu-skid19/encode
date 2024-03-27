@@ -1,0 +1,12 @@
+.centered-div {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .centered-div button {
+    margin-top: 10px; /* Add some spacing between the elements */
+  }
+  

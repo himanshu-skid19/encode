@@ -1,0 +1,16 @@
+{
+  "name": "mern-deploy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install-server": "cd backend && npm install",
+    "start-server": "cd backend && node server.js",
+    "install-client": "cd client && npm install && npm install react-scripts --save",
+    "build-client": "cd client &&  chmod +x node_modules/.bin/react-scripts && npm run build",
+    "start-client": "cd client && npm run start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

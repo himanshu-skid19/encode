@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GITHUB_AUTH = exports.mailSender = exports.analyticsLink = exports.surveyLink = exports.repo = exports.owner = exports.apiURL = exports.SENDGRID_API_KEY = void 0;
+exports.SENDGRID_API_KEY = "INSER KEY HERE";
+exports.apiURL = 'https://api.devrev.ai/rev-users.list';
+exports.owner = 'SpyzzVVarun';
+exports.repo = 'survey-form-deploy';
+exports.surveyLink = 'https://devrev-survey-form-frontend.onrender.com';
+exports.analyticsLink = "https://nps-survey-app.onrender.com/";
+exports.mailSender = "notifications.devrev@gmail.com";
+exports.GITHUB_AUTH = "INSERT AUTH HERE";

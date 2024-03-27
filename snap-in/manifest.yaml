@@ -1,0 +1,132 @@
+version: '2'
+
+name: NPS Survey
+description: Snap In to send customized survey to mailing list 
+
+service_account:
+  display_name: "DevRev Bot"
+
+event_sources:
+  organization:
+    - name: devrev-webhook
+      display_name: DevRev
+      type: devrev-webhook
+      config:
+        event_types:
+          - work_created
+
+inputs:
+  organization:
+    - name: PAT
+      description: "Add your PAT"
+      field_type: text
+      ui:
+        display_name: "Personal Access Token"
+
+    - name: survey_config
+      description: "Configuration for sending out the surveys. Format to be followed while filling this: [Your email, Company Name, Name of Product, Quesiton for Promoters, Question for Passives, Question for Detractors, Follow-up Question Options]"
+      base_type: text
+      field_type: array
+      max_items: 15
+      min_items: 7
+      default_value:
+        - "notifications.devrev@gmail.com"
+        - "DevRev"
+        - "SampleProduct"
+        - "What can we do to make your experience more satisfying?"
+        - "What can we do to make your experience more satisfying?"
+        - "How did we disappoint you and what can we do to make things right?"
+        - "Performance"
+        - "User Interface"
+        - "Quality Support"
+        - "Stability"
+        - "Documentations and Demos"
+      ui:
+        display_name: "Survey Configuration"
+
+
+
+    - name: slack_settings
+      description: "Configuration for sending surveys via slack. Format to be followed while filling this is: [slack_token, slack_channel, slack_bot_name]"
+      base_type: text
+      field_type: array
+      max_items: 3
+      min_items: 3
+      default_value:
+        - "xoxp-your-slack-token"
+        - "#feedback"
+        - "FeedbackBot"
+      ui:
+        display_name: "Slack Settings"
+
+    - name: chat_widget_settings
+      description: "Configuration for chat widget integrations like PLuG. Format to be followed while filling this is: [widget_id, auth_token, welcome_message]"
+      base_type: text
+      field_type: array
+      max_items: 3
+      min_items: 3
+      default_value:
+        - "plug-widget-id"
+        - "plug-auth-token"
+        - "Would you like to provide feedback?"
+
+      ui:
+        display_name: "Chat Widget Integration Settings"
+
+    - name: start_date
+      description: Defines when the survey should be first distributed.
+      field_type: date
+      is_required: false
+      ui:
+        display_name: "Start Date"
+
+    - name: survey_frequency
+      description: Defines how often the NPS survey is distributed.
+      field_type: enum
+      default_value: "Monthly"
+      ui:
+        display_name: "Survey Frequency"
+      allowed_values:
+        - "Weekly"
+        - "Monthly"
+        - "Quarterly"
+        - "Annually"
+
+    - name: monitoring_frequency
+      description: "How often the system should check the status of survey distributions and responses."
+      field_type: enum
+      default_value: "Every 1 hour"
+      ui:
+        display_name: "Monitoring Frequency"
+      allowed_values:
+        - "Every 15 minutes"
+        - "Every 30 minutes"
+        - "Every 1 hour"
+        - "Every 4 hours"
+        - "Once a day"
+
+
+functions:
+  - name: function_1
+    description: Function to create a timeline entry comment on a DevRev work item created.
+  - name: function_2
+    description: Function to create a timeline entry comment on a DevRev work item on which comment is added.
+
+automations:
+  - name: convergence_automation_devrev
+    source: devrev-webhook
+    event_types:
+      - work_created
+    function: function_1
+
+commands:
+  - name: comment_here
+    namespace: devrev
+    description: Command to trigger function to add comment to this work item.
+    surfaces:
+      - surface: discussions
+        object_types:
+          - issue
+          - ticket
+    usage_hint: "Command to add comment to this work item."
+    function: function_2
